@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import { useNavigate } from "react-router";
 
 function AddAccount({ addNewAccountToState }) {
@@ -6,6 +6,11 @@ function AddAccount({ addNewAccountToState }) {
     newAccount: { id: "", name: "", lastname: "", phone: "", email: "" },
   });
   const navigate = useNavigate();
+
+  const idInput = useRef();
+  useEffect(() => {
+    idInput.current.focus();
+  });
 
   const changeHandler = (event) => {
     let id = event.target.id;
@@ -16,7 +21,7 @@ function AddAccount({ addNewAccountToState }) {
 
   function addNewAccount2() {
     navigate("/");
-    localStorage.setItem("korisnik", JSON.stringify(korisnik));
+    // localStorage.setItem("korisnik", JSON.stringify(korisnik));
     return addNewAccountToState(korisnik.newAccount);
     // console.log(korisnik);
   }
@@ -30,6 +35,7 @@ function AddAccount({ addNewAccountToState }) {
             <div className="col-10 offset-1">
               <input
                 type="text"
+                ref={idInput}
                 onChange={changeHandler}
                 id="id"
                 placeholder="id"
