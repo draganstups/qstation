@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import Header from "./components/Header/Header";
 import { Routes, Route, BrowserRouter as Router } from "react-router-dom";
 import AccountsTable from "./components/AccountsTable/AccountsTable";
@@ -24,6 +24,19 @@ function App() {
       email: "markovic@gmail.com",
     },
   ]);
+
+  useEffect(() => {
+    const data = localStorage.getItem("korisnik");
+    if (data) {
+      setAccounts(JSON.parse(data));
+    }
+  }, []);
+
+  useEffect(() => {
+    localStorage.setItem("korisnik", JSON.stringify(accounts));
+    // let kor = JSON.parse(localStorage.getItem("Vesko"));
+    console.log("object");
+  });
 
   // console.log(accounts.id);
   function addNewAccountToState(acc) {
